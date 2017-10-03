@@ -1,0 +1,15 @@
+{
+ "language": "javascript",
+ "views": {
+  "nosea": {
+   "map": "function(doc){ if( doc.code && [9,10,11,19,20,21,25].indexOf(doc.code) > -1 ){ emit( doc._id, {code:doc.code,prefecture:doc.prefecture,capital:doc.capital,lat:doc.lat,lng:doc.lng} ); } }"
+  }
+ },
+ "lists": {
+  "nosea": "function( head, row ){ start( { 'headers': { 'content-type': 'text/html' } } ); send( '<ul>' ); var row; while( row = getRow() ){  var url = '../../_show/nosea/';  send( ' <li><a href=\"' + url + row.id + '\">' + row.value.prefecture + '(' + row.value.capital + ')</a></li>' ); } send( '</ul>' );}"
+ },
+ "shows": {
+  "nosea": "(function( doc, req ){ if( doc ){  var str = '<h2>' + doc.prefecture + '</h2><h3>' + doc.capital + '</h3><hr/>緯度: ' + doc.lat + '<br/>経度: ' + doc.lng;  return str; }else{  return 'empty'; }})"
+ }
+}
+
