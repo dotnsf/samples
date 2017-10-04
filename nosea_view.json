@@ -2,7 +2,7 @@
  "language": "javascript",
  "views": {
   "nosea": {
-   "map": "function(doc){ if( doc.code && [9,10,11,19,20,21,25].indexOf(doc.code) > -1 ){ emit( doc._id, {code:doc.code,prefecture:doc.prefecture,capital:doc.capital} ); } }"
+   "map": "function(doc){ if( doc.code && [9,10,11,19,20,21,25,29].indexOf(doc.code) > -1 ){ emit( doc._id, {code:doc.code,prefecture:doc.prefecture,capital:doc.capital} ); } }"
   }
  }
 }
