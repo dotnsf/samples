@@ -46,18 +46,20 @@ function list(){
 }
 
 function delDoc( id, rev ){
-  $.ajax({
-    type: 'DELETE',
-    url: '/mydelete',
-    data: { _id: id, _rev: rev },
-    success: function( data ){
-      console.log( data );
-      setTimeout( 'list()', 1000 );
-    },
-    error: function(){
-      console.log( 'error' );
-    }
-  });
+  if( window.confirm( 'OK?' ) ){
+    $.ajax({
+      type: 'DELETE',
+      url: '/mydelete',
+      data: { _id: id, _rev: rev },
+      success: function( data ){
+        console.log( data );
+        setTimeout( 'list()', 1000 );
+      },
+      error: function(){
+        console.log( 'error' );
+      }
+    });
+  }
 }
 </script>
 </head>
