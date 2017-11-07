@@ -1,0 +1,48 @@
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>OpenStreetMap</title>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="https://openlayers.org/api/OpenLayers.js"></script>
+<script>
+var lat = 35.808988593791;
+var lng = 139.66500109018148;
+
+var map = null;
+var marker = null;
+
+$(function(){
+  var options = {
+    controls: [ new OpenLayers.Control.Navigation(), new OpenLayers.Control.NavToolbar(), new OpenLayers.Control.PanZoomBar(), new OpenLayers.Control.ScaleLine(), new OpenLayers.Control.Attribution() ]
+  };
+  map = new OpenLayers.Map( "demoMap", options );
+  map.addLayer( new OpenLayers.Layer.OSM() );
+
+  var lnglat = new OpenLayers.LonLat( lng, lat ).transform( new OpenLayers.Projection( "EPSG:4326" ), map.getProjectionObject() );
+
+  var markers = new OpenLayers.Layer.Markers( "Markers" );
+  map.addLayer( markers );
+
+  marker = new OpenLayers.Marker( lnglat );
+  markers.addMarker( marker );
+
+  map.setCenter( lnglat, 15 );
+
+  setInterval( randomWalk, 1000 );
+});
+
+function randomWalk(){
+  lat += Math.random() / 100.0 - 0.005;
+  lng += Math.random() / 100.0 - 0.005;
+  var lnglat = new OpenLayers.LonLat( lng, lat ).transform( new OpenLayers.Projection( "EPSG:4326" ), map.getProjectionObject() );
+  var newpx = map.getPixelFromLonLat( lnglat );
+  //var newpx = map.getLayerPxFromViewPortPx( map.getPixelFromLonLat( new OpenLayers.LonLat( lng, lat ).transform( map.displayProjection, map.projection ) ) );
+  marker.moveTo( newpx );
+}
+</script>
+</head>
+<body>
+<div id="demoMap"></div>
+</body>
+</html>
+
