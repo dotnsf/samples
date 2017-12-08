@@ -1,0 +1,98 @@
+<html>
+<head>
+<title>Cloudant</title>
+<script src='//code.jquery.com/jquery-2.2.4.min.js'></script>
+<link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'/>
+<script src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+<script>
+$(function(){
+  $('#myform').submit( function(){
+    $.ajax({
+      type: 'POST',
+      url: '/mypost',
+      data: { country: $('#country').val(), capital: $('#capital').val(), attractions: $('#attractions').val() },
+      success: function( data ){
+        console.log( data );
+        setTimeout( 'list()', 1000 );
+      },
+      error: function(){
+        console.log( 'error' );
+      }
+    });
+
+    return false;
+  });
+
+  list();
+});
+
+function list(){
+  $('#list').html( '' );
+  $.ajax({
+    type: 'GET',
+    url: '/myget',
+    success: function( data ){
+      console.log( data );
+      if( data && data.length > 0 ){
+        for( var i = 0; i < data.length; i ++ ){
+          var doc = data[i];
+          var tr = '<tr><td>' + doc.country + '</td><td>' + doc.capital + '</td><td>' + doc.attractions + '</td><td><input type="button" value="del" onClick="delDoc( \'' + doc._id + '\', \'' + doc._rev + '\' )"/></td></tr>';
+          $('#list').append( tr );
+        }
+      }
+    },
+    error: function(){
+      console.log( 'error' );
+    }
+  });
+}
+
+function delDoc( id, rev ){
+  if( window.confirm( 'OK?' ) ){
+    $.ajax({
+      type: 'DELETE',
+      url: '/mydelete',
+      data: { _id: id, _rev: rev },
+      success: function( data ){
+        console.log( data );
+        setTimeout( 'list()', 1000 );
+      },
+      error: function(){
+        console.log( 'error' );
+      }
+    });
+  }
+}
+</script>
+</head>
+<body>
+
+<table class='table table-hover table-bordered'> 
+<thead>
+<tr><th>Country</th><th>Capital</th><th>Attractions</th><th>Action</th><tr>
+</thead>
+<tbody id='list'>
+</tbody>
+</table>
+
+<hr/>
+
+<form method='POST' id='myform'>
+<div class='form-group row'>
+<label for='country' class='col-sm-2 col-form-label'>Country: </label>
+<div class='col-sm-10'><input type='text' id='country' name='country' value='' placeholder='Country name'/></div>
+</div>
+<div class='form-group row'>
+<label for='capital' class='col-sm-2 col-form-label'>Capital: </label>
+<div class='col-sm-10'><input type='text' id='capital' name="capital" value='' placeholder='Capital city name'/></div>
+</div>
+<div class='form-group row'>
+<label for='attractions' class='col-sm-2 col-form-label'>Attractions: </label>
+<div class='col-sm-10'><input type='text' id='attractions' name="attractions" value='' placeholder='Place, Entertainment, ...'/></div>
+</div>
+<input type='submit' class='btn btn-primary' value='click'/>
+</form>
+
+</body>
+</html>
+
