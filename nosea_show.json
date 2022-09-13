@@ -6,7 +6,7 @@
   }
  },
  "lists": {
-  "nosea": "function( head, row ){ start( { 'headers': { 'content-type': 'text/html' } } ); send( '<ul>' ); var row; while( row = getRow() ){  var url = '../../_show/nosea/';  send( ' <li><a href=\"' + url + row.id + '\">' + row.value.prefecture + '(' + row.value.capital + ')</a></li>' ); } send( '</ul>' );}"
+  "nosea": "function( head, row ){ start( { 'headers': { 'content-type': 'text/html; charset=utf-8' } } ); send( '<ul>' ); var row; while( row = getRow() ){  var url = '../../_show/nosea/';  send( ' <li><a href=\"' + url + row.id + '\">' + row.value.prefecture + '(' + row.value.capital + ')</a></li>' ); } send( '</ul>' );}"
  },
  "shows": {
   "nosea": "(function( doc, req ){ if( doc ){  var str = '<h2>' + doc.prefecture + '</h2><h3>' + doc.capital + '</h3><hr/>緯度: ' + doc.lat + '<br/>経度: ' + doc.lng;  return str; }else{  return 'empty'; }})"
