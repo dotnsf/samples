@@ -6,10 +6,17 @@
   }
  },
  "lists": {
+<<<<<<< HEAD
   "nosea": "function( head, row ){ start( { 'headers': { 'content-type': 'text/html; charset=utf-8' } } ); send( '<html><head><script src=\"https://code.jquery.com/jquery-2.2.4.min.js\"></script><script>$(function(){ $(\"tr[data-href]\").addClass(\"clickable\").click(function(e){ if( !$(e.target).is(\"a\")){ window.location = $(e.target).closest(\"tr\").data(\"href\"); } }); });</script></head><body><h1>海なし県一覧</h1><table border=\"1\"><tr><th>海なし県</th><th>海から遠い県庁所在地</th></tr>' ); var row; while( row = getRow() ){  var url = '../../_show/nosea/';  send( ' <tr data-href=\"' + url + row.id + '\"><td><a href=\"' + url + row.id + '\">' + row.value.prefecture + '</a></td><td><a href=\"' + url + row.id + '\">' + row.value.capital + '</a></td></tr>' ); } send( '</table></html>' );}"
  },
  "shows": {
   "nosea": "(function( doc, req ){ if( doc ){  start( {'headers':{'content-type':'text/html; charset=utf-8'}} ); var str = '<html><head><script src=\"https://cdn.jsdelivr.net/npm/ol@v7.1.0/dist/ol.js\"></script><script>function init(){ return new ol.Map({ layers: [ new ol.layer.Tile({ source: new ol.source.OSM() }); ], target: \"demoMap\", controls: ol.control.defaults({ attributionOptions: { collapsible: false } }), view: new ol.View({ center: [' + doc.lat + ',' + doc.lng + '], zoom: 2 }) }); }</script></head><body onload=\"init()\"><h2>' + doc.prefecture + '</h2><h3>' + doc.capital + '</h3><p/>緯度: ' + doc.lat + '<br/>経度: ' + doc.lng + '<hr/><div id=\"demoMap\"></div></body></html>';  return str; }else{  return 'empty'; }})"
+=======
+  "nosea": "function( head, row ){ start( { 'headers': { 'content-type': 'text/html; charset=utf-8' } } ); send( '<!DOCTYPE html><html><head><script src=\"https://code.jquery.com/jquery-2.2.4.min.js\"></script><script>$(function(){ $(\"tr[data-href]\").addClass(\"clickable\").click(function(e){ if( !$(e.target).is(\"a\")){ window.location = $(e.target).closest(\"tr\").data(\"href\"); } }); });</script></head><body><h1>海なし県一覧</h1><table border=\"1\"><tr><th>海なし県</th><th>海から遠い県庁所在地</th></tr>' ); var row; while( row = getRow() ){  var url = '../../_show/nosea/';  send( ' <tr data-href=\"' + url + row.id + '\"><td><a href=\"' + url + row.id + '\">' + row.value.prefecture + '</a></td><td><a href=\"' + url + row.id + '\">' + row.value.capital + '</a></td></tr>' ); } send( '</table></html>' );}"
+ },
+ "shows": {
+  "nosea": "(function( doc, req ){ if( doc ){  start( {'headers':{'content-type':'text/html; charset=utf-8'}} ); var str = '<!DOCTYPE html><html><head><script src=\"https://code.jquery.com/jquery-2.2.4.min.js\"></script><script src=\"https://cdn.jsdelivr.net/npm/ol@v7.1.0/dist/ol.js\"></script><script>$(function(){ console.log( 0 ); return new ol.Map({ layers: [ new ol.layer.Tile({ source: new ol.source.OSM() }); ], target: \"demoMap\", controls: ol.control.defaults({ attributionOptions: { collapsible: false } }), view: new ol.View({ center: [' + doc.lat + ',' + doc.lng + '], zoom: 2 }) }); console.log( 1 ); });</script></head><body onload=\"init()\"><h2>' + doc.prefecture + '</h2><h3>' + doc.capital + '</h3><p/>緯度: ' + doc.lat + '<br/>経度: ' + doc.lng + '<hr/><div id=\"demoMap\" style=\"height: 500px;\"></div></body></html>';  return str; }else{  return 'empty'; }})"
+>>>>>>> e3d399a68e526f5be03a2ec8d7abf7a4ffa6e4ec
  }
 }
 
